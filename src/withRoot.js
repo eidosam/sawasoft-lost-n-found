@@ -6,31 +6,31 @@ import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
 
 const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: purple[300],
-      main: purple[500],
-      dark: purple[700],
+    palette: {
+        primary: {
+            light: purple[300],
+            main: purple[500],
+            dark: purple[700],
+        },
+        secondary: {
+            light: green[300],
+            main: green[500],
+            dark: green[700],
+        },
     },
-    secondary: {
-      light: green[300],
-      main: green[500],
-      dark: green[700],
-    },
-  },
 });
 
 function withRoot (Component) {
-  function WithRoot (props) {
-    return (
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...props} />
-      </MuiThemeProvider>
-    );
-  }
+    function WithRoot (props) {
+        return (
+            <MuiThemeProvider theme={theme}>
+                <CssBaseline />
+                <Component {...props} />
+            </MuiThemeProvider>
+        );
+    }
 
-  return WithRoot;
+    return WithRoot;
 }
 
 export default withRoot;
