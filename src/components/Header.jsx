@@ -117,9 +117,9 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-    signIn: PropTypes.func,
-    signOut: PropTypes.func,
     user: PropTypes.object,
+    signIn: PropTypes.func.isRequired,
+    signOut: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired
 };
 
