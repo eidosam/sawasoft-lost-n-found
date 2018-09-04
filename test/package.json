@@ -1,0 +1,18 @@
+{
+  "name": "sample-data-gen",
+  "version": "0.1.0",
+  "description": "Generate sample data for the App",
+  "author": "Samir Aleido",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/firestore": "^0.16.1",
+    "bluebird": "^3.5.2",
+    "dotenv": "^6.0.0",
+    "faker": "^4.1.0"
+  }
+}
