@@ -1,20 +1,38 @@
 
 import { observable, action } from 'mobx';
-import { signIn, signOut } from '../lib/firebase';
+import { signIn, signOut, writeData, readData } from '../lib/firebase';
 
 class AppStore {
     @observable user = null;
+    @observable devices = [];
+
+    constructor() {
+        this.readData();
+    }
 
     @action signIn = () => {
-        signIn().then((user) => this.setUser(user));
+        return signIn().then((user) => this.setUser(user));
     };
 
     @action signOut = () => {
-        signOut().then(() => this.setUser(null));
+        return signOut().then(() => this.setUser(null));
     };
+
+    @action writeData = (data) => {
+        return writeData(`/devices/${+new Date()}`, data);
+    }
+
+    @action readData = () => {
+        return readData('/devices')
+            .then(this.setDevices);
+    }
 
     @action.bound setUser = (user) => {
         this.user = user;
+    };
+
+    @action.bound setDevices = (devices) => {
+        this.devices = devices;
     };
 }
 

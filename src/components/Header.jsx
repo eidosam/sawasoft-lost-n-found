@@ -2,17 +2,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Avatar from '@material-ui/core/Avatar';
-import Toolbar from '@material-ui/core/Toolbar';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Typography, IconButton, Avatar, Toolbar, AppBar, Button, MenuItem, Menu } from '@material-ui/core';
+import { Menu as MenuIcon } from '@material-ui/icons';
 
-const styles = (/*theme*/) => ({
+import ActionsMenu from './ActionsMenu';
+
+const styles = () => ({
     root: {
         flexGrow: 1,
     },
@@ -22,30 +17,43 @@ const styles = (/*theme*/) => ({
     menuButton: {
         marginLeft: -12,
         marginRight: 20,
-    },
+    }
 });
 
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.menuOpen = this.menuOpen.bind(this);
-        this.menuClose = this.menuClose.bind(this);
+
         this.state = {
-            anchorEl: null
+            anchorEl: null,
+            actionsMenuOpen: false
         };
     }
 
-    menuOpen (event) {
-        this.setState({ anchorEl: event.currentTarget });
+    menuOpen = (event) => {
+        this.setState({
+            ...this.state,
+            anchorEl: event.currentTarget
+        });
     }
 
-    menuClose () {
-        this.setState({ anchorEl: null });
+    menuClose = () => {
+        this.setState({
+            ...this.state,
+            anchorEl: null
+        });
+    }
+
+    actionsMenuToggle = () => {
+        this.setState({
+            ...this.state,
+            actionsMenuOpen: !this.state.actionsMenuOpen
+        });
     }
 
     render () {
         const { classes, user, signIn, signOut } = this.props;
-        const { anchorEl } = this.state;
+        const { anchorEl, actionsMenuOpen } = this.state;
         const isMenuOpen = Boolean(anchorEl);
 
         return (
@@ -60,8 +68,13 @@ class Header extends Component {
                             className={classes.menuButton}
                             color="inherit"
                             aria-label="Menu"
+                            onClick={this.actionsMenuToggle}
                         >
                             <MenuIcon />
+                            <ActionsMenu
+                                isOpen={actionsMenuOpen}
+                                actionsMenuToggle={this.actionsMenuToggle}
+                            />
                         </IconButton>
                         <Typography
                             variant="title"
@@ -79,14 +92,6 @@ class Header extends Component {
                                     />
                                     <Menu
                                         anchorEl={anchorEl}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
                                         open={isMenuOpen}
                                         onClose={this.menuClose}
                                     >
