@@ -4,8 +4,8 @@
   "description": "SawaSoft Lost-n-Found",
   "author": "Samir Aleido",
   "dependencies": {
-    "@material-ui/core": "^1.5.1",
-    "@material-ui/icons": "^2.0.3",
+    "@material-ui/core": "^3.0.1",
+    "@material-ui/icons": "^3.0.1",
     "ajv": "^6.5.3",
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
