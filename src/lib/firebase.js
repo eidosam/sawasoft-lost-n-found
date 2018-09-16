@@ -15,7 +15,8 @@ auth.useDeviceLanguage();
 const provider = new firebase.auth.GoogleAuthProvider();
 
 function signIn () {
-    return auth.signInWithPopup(provider)
+    return auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        .then(() => auth.signInWithPopup(provider))
         .then((result) => ({
             uid: result.user.uid,
             email: result.user.email,
@@ -47,4 +48,4 @@ function readData (path) {
 }
 
 export default firebase;
-export { signIn, signOut, writeData, readData };
+export { auth, signIn, signOut, writeData, readData };

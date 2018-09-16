@@ -1,6 +1,6 @@
 
 import { observable, action } from 'mobx';
-import { signIn, signOut, writeData, readData } from '../lib/firebase';
+import { auth, signIn, signOut, writeData, readData } from '../lib/firebase';
 
 class AppStore {
     @observable user = null;
@@ -8,7 +8,14 @@ class AppStore {
     @observable devices = [];
 
     constructor() {
-        this.readData();
+        this.monitorAuthState();
+    }
+
+    @action monitorAuthState = () => {
+        auth.onAuthStateChanged((user) => {
+            this.setUser(user);
+            this.readData();
+        });
     }
 
     @action signIn = () => {
