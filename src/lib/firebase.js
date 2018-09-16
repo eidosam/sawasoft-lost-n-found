@@ -30,12 +30,25 @@ function signOut () {
 }
 
 function writeData (path, data) {
+    if (!(auth && auth.currentUser)) return Promise.reject();
+
+    Object.assign(data, {
+        _metadata: {
+            ts: new Date(),
+            uid: auth.currentUser.uid
+        }
+    });
+
     return firestore.doc(path)
         .set(data, { merge: true });
 }
 
 function readData (path) {
+    if (!(auth && auth.currentUser)) return Promise.resolve([]);
+
     return firestore.collection(path)
+        .where('_metadata.uid', '==', auth.currentUser.uid)
+        .orderBy('_metadata.ts', 'desc')
         .limit(16)
         .get()
         .then(col => {
