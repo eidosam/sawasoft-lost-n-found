@@ -8,16 +8,21 @@ import { withStyles } from '@material-ui/core/styles';
 import SingleItemView from './SingleItemView';
 import withRoot from '../withRoot';
 
-const styles = {};
+const styles = () => ({
+    viewItemsContainer: {
+        padding: '10px'
+    }
+});
 
 @inject('AppStore')
 @observer class ViewItems extends Component {
     render () {
-        const { AppStore: { devices }, fields } = this.props;
+        const { AppStore: { devices }, fields, classes } = this.props;
 
         return (
             <Grid
                 container
+                className={classes.viewItemsContainer}
             >
                 {
                     devices.map(dev => (
@@ -41,6 +46,7 @@ const styles = {};
 }
 
 ViewItems.propTypes = {
+    classes: PropTypes.object.isRequired,
     AppStore: PropTypes.object,
     fields: PropTypes.array
 };
